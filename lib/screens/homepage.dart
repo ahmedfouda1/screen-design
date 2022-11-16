@@ -15,6 +15,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final orientation=MediaQuery.of(context).orientation;
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
           title: Center(
@@ -40,33 +41,42 @@ class HomePage extends StatelessWidget {
           ]),
       body: Stack(
         children: [
-         ListView(
-              children: [
-                SizedBox(
-                  height: height * .34,
-                  child: CarouselSlider.builder(
-                      itemCount: imagePaths.length,
-                      itemBuilder: (context, index, realIndex) {
-                        return Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  imagePaths[index],
-                                ),
-                                fit: BoxFit.cover,
-                              )),
-                        );
-                      },
-                      options: CarouselOptions(
-                          enlargeCenterPage: true,
-                          autoPlay: true,
-                          autoPlayAnimationDuration:
-                              const Duration(seconds: 2))),
-                ),
-                orientation == Orientation.portrait? Portrait(): LandScape(),
-              ],
-            ),
+         Column(
+           children: [
+             SizedBox(
+               height: height * .3,
+               width: double.infinity,
+               child: CarouselSlider.builder(
+                   itemCount: imagePaths.length,
+                   itemBuilder: (context, index, realIndex) {
+                     return Container(
+                       decoration: BoxDecoration(
+                           borderRadius: BorderRadius.circular(width*.14),
+                           image: DecorationImage(
+
+                             image: AssetImage(
+                               imagePaths[index],
+                             ),
+                             fit: BoxFit.cover,
+                           )),
+                     );
+                   },
+                   options: CarouselOptions(
+                       enlargeCenterPage: true,
+                       autoPlay: true,
+                       autoPlayAnimationDuration:
+                       const Duration(seconds: 2))),
+             ),
+             Expanded(
+               child: ListView(
+                    children: [
+
+                      orientation == Orientation.portrait? Portrait(): LandScape(),
+                    ],
+                  ),
+             ),
+           ],
+         ),
 
         ],
       ),
