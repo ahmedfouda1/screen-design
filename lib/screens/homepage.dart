@@ -9,13 +9,12 @@ class HomePage extends StatelessWidget {
     "assets/images/img2.png",
     "assets/images/img3.png",
   ];
-
+  
 
   @override
   Widget build(BuildContext context) {
-
+    final orientation=MediaQuery.of(context).orientation;
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
           title: Center(
@@ -41,189 +40,399 @@ class HomePage extends StatelessWidget {
           ]),
       body: Stack(
         children: [
-       SizedBox(
-        child: ListView(
-        children: [
-        SizedBox(
-          height: height*.34,
-        child: CarouselSlider.builder(
-            itemCount: imagePaths.length,
-            itemBuilder: (context, index, realIndex) {
-              return Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
-                    image: DecorationImage(
-                      image: AssetImage(imagePaths[index],),
-                      fit: BoxFit.cover,
-
-                    )
-                ),
-
-              );
-            },
-            options: CarouselOptions(
-                enlargeCenterPage: true,
-                autoPlay: true,
-                autoPlayAnimationDuration: const Duration(seconds: 2)
-            )
-        ),
-      ),
-          Padding(
-            padding:  EdgeInsets.all( height*0.02),
-            child: Column(
+         ListView(
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      child: CircleAvatar(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.person_outline, size: 45,),
-                            Text("ولي الامر")
-                          ],
-                        ),
-                        radius: 55,
-                        backgroundColor: Colors.white,
-                      ),
-                      backgroundColor: Colors.lightBlue,
-                      radius: 60,
-                    ),
-                    SizedBox(width: width*0.2,),
-                    CircleAvatar(
-                      child: CircleAvatar(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.meeting_room_outlined, size: 45,),
-                            Text("طلب مقابلة")
-                          ],
-                        ),
-                        radius: 55,
-                        backgroundColor: Colors.white,
-                      ),
-                      backgroundColor: Colors.lightBlue,
-                      radius: 60,
-                    ),
-                  ],
+                SizedBox(
+                  height: height * .34,
+                  child: CarouselSlider.builder(
+                      itemCount: imagePaths.length,
+                      itemBuilder: (context, index, realIndex) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              image: DecorationImage(
+                                image: AssetImage(
+                                  imagePaths[index],
+                                ),
+                                fit: BoxFit.cover,
+                              )),
+                        );
+                      },
+                      options: CarouselOptions(
+                          enlargeCenterPage: true,
+                          autoPlay: true,
+                          autoPlayAnimationDuration:
+                              const Duration(seconds: 2))),
                 ),
-                SizedBox(height: height*0.02),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      child: CircleAvatar(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.work_outline, size: 45,),
-                            Text("طلب توظيف")
-                          ],
-                        ),
-                        radius: 55,
-                        backgroundColor: Colors.white,
-                      ),
-                      backgroundColor: Colors.lightBlue,
-                      radius: 60,
-                    ),
-                    SizedBox(width: width*0.2,),
-                    CircleAvatar(
-                      child: CircleAvatar(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.library_books_rounded, size: 45,),
-                            Text("نماذج")
-                          ],
-                        ),
-                        radius: 55,
-                        backgroundColor: Colors.white,
-                      ),
-                      backgroundColor: Colors.lightBlue,
-                      radius: 60,
-                    ),
-                  ],
-                ),
-                SizedBox(height: height*0.02),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      child: CircleAvatar(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.web, size: 45,),
-                            Text("روابط عامة")
-                          ],
-                        ),
-                        radius: 55,
-                        backgroundColor: Colors.white,
-                      ),
-                      backgroundColor: Colors.lightBlue,
-                      radius: 60,
-                    ),
-                    SizedBox(width: width*0.2,),
-                    CircleAvatar(
-                      child: CircleAvatar(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.calendar_month_outlined, size: 45,),
-                            Text("رزنامة العام")
-                          ],
-                        ),
-                        radius: 55,
-                        backgroundColor: Colors.white,
-                      ),
-                      backgroundColor: Colors.lightBlue,
-                      radius: 60,
-                    ),
-                  ],
-                ),
-
-                SizedBox(height: height*0.02,),
-                CircleAvatar(
-                  child: CircleAvatar(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.call, size: 45,),
-                        Text("تواصل معنا")
-                      ],
-                    ),
-                    radius: 55,
-                    backgroundColor: Colors.white,
-                  ),
-                  backgroundColor: Colors.lightBlue,
-                  radius: 60,
-                ),
-
+                orientation == Orientation.portrait? Portrait(): LandScape(),
               ],
-
             ),
+
+        ],
+      ),
+    );
+  }
+  
+}
+
+class Portrait extends StatelessWidget {
+   Portrait({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    return Padding(
+      padding: EdgeInsets.all(height * 0.02),
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                child: CircleAvatar(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.person_outline,
+                        size: 45,
+                      ),
+                      Text("ولي الامر")
+                    ],
+                  ),
+                  radius: 55,
+                  backgroundColor: Colors.white,
+                ),
+                backgroundColor: Colors.lightBlue,
+                radius: 60,
+              ),
+              SizedBox(
+                width: width * 0.2,
+              ),
+              CircleAvatar(
+                child: CircleAvatar(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.meeting_room_outlined,
+                        size: 45,
+                      ),
+                      Text("طلب مقابلة")
+                    ],
+                  ),
+                  radius: 55,
+                  backgroundColor: Colors.white,
+                ),
+                backgroundColor: Colors.lightBlue,
+                radius: 60,
+              ),
+            ],
           ),
-      ],
-        ),
-
-    ),
-
-
-    ]
-    ,
-    )
-    ,
+          SizedBox(height: height * 0.02),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                child: CircleAvatar(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.work_outline,
+                        size: 45,
+                      ),
+                      Text("طلب توظيف")
+                    ],
+                  ),
+                  radius: 55,
+                  backgroundColor: Colors.white,
+                ),
+                backgroundColor: Colors.lightBlue,
+                radius: 60,
+              ),
+              SizedBox(
+                width: width * 0.2,
+              ),
+              CircleAvatar(
+                child: CircleAvatar(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.library_books_rounded,
+                        size: 45,
+                      ),
+                      Text("نماذج")
+                    ],
+                  ),
+                  radius: 55,
+                  backgroundColor: Colors.white,
+                ),
+                backgroundColor: Colors.lightBlue,
+                radius: 60,
+              ),
+            ],
+          ),
+          SizedBox(height: height * 0.02),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                child: CircleAvatar(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.web,
+                        size: 45,
+                      ),
+                      Text("روابط عامة")
+                    ],
+                  ),
+                  radius: 55,
+                  backgroundColor: Colors.white,
+                ),
+                backgroundColor: Colors.lightBlue,
+                radius: 60,
+              ),
+              SizedBox(
+                width: width * 0.2,
+              ),
+              CircleAvatar(
+                child: CircleAvatar(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.calendar_month_outlined,
+                        size: 45,
+                      ),
+                      Text("رزنامة العام")
+                    ],
+                  ),
+                  radius: 55,
+                  backgroundColor: Colors.white,
+                ),
+                backgroundColor: Colors.lightBlue,
+                radius: 60,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: height * 0.02,
+          ),
+          CircleAvatar(
+            child: CircleAvatar(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.call,
+                    size: 45,
+                  ),
+                  Text("تواصل معنا")
+                ],
+              ),
+              radius: 55,
+              backgroundColor: Colors.white,
+            ),
+            backgroundColor: Colors.lightBlue,
+            radius: 60,
+          ),
+        ],
+      ),
     );
   }
 }
+
+class LandScape extends StatelessWidget {
+  const LandScape({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    return Padding(
+      padding: EdgeInsets.all(height * 0.07),
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                child: CircleAvatar(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.person_outline,
+                        size: 45,
+                      ),
+                      Text("ولي الامر")
+                    ],
+                  ),
+                  radius: 55,
+                  backgroundColor: Colors.white,
+                ),
+                backgroundColor: Colors.lightBlue,
+                radius: 60,
+              ),
+              SizedBox(
+                width: width * 0.2,
+              ),
+              CircleAvatar(
+                child: CircleAvatar(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.meeting_room_outlined,
+                        size: 45,
+                      ),
+                      Text("طلب مقابلة")
+                    ],
+                  ),
+                  radius: 55,
+                  backgroundColor: Colors.white,
+                ),
+                backgroundColor: Colors.lightBlue,
+                radius: 60,
+              ),
+              SizedBox(
+                width: width * 0.2,
+              ),
+              CircleAvatar(
+                child: CircleAvatar(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.work_outline,
+                        size: 45,
+                      ),
+                      Text("طلب توظيف")
+                    ],
+                  ),
+                  radius: 55,
+                  backgroundColor: Colors.white,
+                ),
+                backgroundColor: Colors.lightBlue,
+                radius: 60,
+              ),
+            ],
+          ),
+          SizedBox(height: height * 0.05),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                child: CircleAvatar(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.library_books_rounded,
+                        size: 45,
+                      ),
+                      Text("نماذج")
+                    ],
+                  ),
+                  radius: 55,
+                  backgroundColor: Colors.white,
+                ),
+                backgroundColor: Colors.lightBlue,
+                radius: 60,
+              ),
+              SizedBox(
+                width: width * 0.2,
+              ),
+              CircleAvatar(
+                child: CircleAvatar(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.web,
+                        size: 45,
+                      ),
+                      Text("روابط عامة")
+                    ],
+                  ),
+                  radius: 55,
+                  backgroundColor: Colors.white,
+                ),
+                backgroundColor: Colors.lightBlue,
+                radius: 60,
+              ),
+              SizedBox(
+                width: width * 0.2,
+              ),
+              CircleAvatar(
+                child: CircleAvatar(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.calendar_month_outlined,
+                        size: 45,
+                      ),
+                      Text("رزنامة العام")
+                    ],
+                  ),
+                  radius: 55,
+                  backgroundColor: Colors.white,
+                ),
+                backgroundColor: Colors.lightBlue,
+                radius: 60,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: height * 0.05,
+          ),
+          CircleAvatar(
+            child: CircleAvatar(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.call,
+                    size: 45,
+                  ),
+                  Text("تواصل معنا")
+                ],
+              ),
+              radius: 55,
+              backgroundColor: Colors.white,
+            ),
+            backgroundColor: Colors.lightBlue,
+            radius: 60,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
